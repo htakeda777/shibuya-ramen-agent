@@ -3,521 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>渋谷区ラーメン店検索</title>
+    <title>Projects</title>
     <style>
-        :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #c0392b;
-            --bg-color: #fdf6f0;
-            --card-bg: #ffffff;
-            --text-color: #2c3e50;
-            --text-light: #7f8c8d;
-            --border-color: #ecf0f1;
-            --shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .projects {
+            display: grid;
+            gap: 20px;
+        }
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .project-card h2 {
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .project-card p {
+            color: #666;
             line-height: 1.6;
         }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .search-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .search-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .search-input input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .search-input input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .filter-group select {
-            padding: 0.75rem 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            background: white;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .filter-group select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .stats-text {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .clear-btn {
-            background: none;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .clear-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .shop-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .shop-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-
-        .shop-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 1rem 1.25rem;
-        }
-
-        .shop-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-
-        .shop-area {
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
-
-        .shop-body {
-            padding: 1.25rem;
-        }
-
-        .shop-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
         .tag {
-            background: #fff3f0;
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .tag.genre {
-            background: #ffeaa7;
-            color: #d68910;
-        }
-
-        .tag.rating {
-            background: #d5f5e3;
-            color: #27ae60;
-        }
-
-        .shop-info {
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-
-        .shop-info p {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .shop-info .icon {
-            width: 20px;
-            margin-right: 0.5rem;
-            flex-shrink: 0;
-        }
-
-        .shop-description {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .specialties {
-            margin-top: 1rem;
-        }
-
-        .specialties h4 {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .specialties-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .specialty-item {
-            background: var(--bg-color);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .shop-link {
             display: inline-block;
-            margin-top: 1rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .shop-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-        }
-
-        .no-results h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .shop-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .search-row {
-                flex-direction: column;
-            }
-
-            .filter-group {
-                width: 100%;
-            }
-
-            .filter-group select {
-                flex: 1;
-            }
+            background: #f0f0f0;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 12px;
+            margin-right: 6px;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>🍜 渋谷区ラーメン店検索</h1>
-        <p>渋谷区内の人気ラーメン店を検索できます</p>
-    </header>
-
-    <main class="container">
-        <section class="search-section">
-            <div class="search-row">
-                <div class="search-input">
-                    <input type="text" id="searchText" placeholder="店名、住所、特徴などで検索...">
-                </div>
-            </div>
-            <div class="search-row">
-                <div class="filter-group">
-                    <select id="areaFilter">
-                        <option value="">全エリア</option>
-                        <option value="千駄ヶ谷">千駄ヶ谷</option>
-<option value="原宿">原宿</option>
-<option value="恵比寿">恵比寿</option>
-<option value="渋谷">渋谷</option>
-<option value="神泉">神泉</option>
-<option value="表参道">表参道</option>
-                    </select>
-                    <select id="genreFilter">
-                        <option value="">全ジャンル</option>
-                        <option value="つけ麺">つけ麺</option>
-<option value="つけ麺・魚介豚骨">つけ麺・魚介豚骨</option>
-<option value="エスニック（グリーンカレー）">エスニック（グリーンカレー）</option>
-<option value="中華そば">中華そば</option>
-<option value="二郎系">二郎系</option>
-<option value="博多豚骨">博多豚骨</option>
-<option value="味噌チーズ">味噌チーズ</option>
-<option value="味噌ラーメン">味噌ラーメン</option>
-<option value="塩ラーメン（柚子塩）">塩ラーメン（柚子塩）</option>
-<option value="塩ラーメン（焼きあご）">塩ラーメン（焼きあご）</option>
-<option value="家系">家系</option>
-<option value="担々麺">担々麺</option>
-<option value="煮干しラーメン">煮干しラーメン</option>
-<option value="薬膳ラーメン">薬膳ラーメン</option>
-<option value="豚骨">豚骨</option>
-<option value="豚骨醤油（背脂）">豚骨醤油（背脂）</option>
-<option value="豚骨魚介">豚骨魚介</option>
-<option value="辛味噌">辛味噌</option>
-<option value="醤油ラーメン">醤油ラーメン</option>
-<option value="鶏白湯">鶏白湯</option>
-<option value="鶏白湯・手打ち麺">鶏白湯・手打ち麺</option>
-<option value="麻婆麺・担々麺">麻婆麺・担々麺</option>
-                    </select>
-                    <select id="sortOrder">
-                        <option value="name">名前順</option>
-                        <option value="rating">評価順</option>
-                        <option value="area">エリア順</option>
-                    </select>
-                </div>
-            </div>
-            <div class="stats">
-                <span class="stats-text" id="resultCount">全 29 店舗</span>
-                <button class="clear-btn" onclick="clearFilters()">クリア</button>
-            </div>
-        </section>
-
-        <section class="shop-grid" id="shopGrid">
-            <!-- 店舗カードがここに動的に挿入される -->
-        </section>
-
-        <div class="no-results" id="noResults" style="display: none;">
-            <h3>該当する店舗が見つかりません</h3>
-            <p>検索条件を変更してお試しください</p>
+    <div class="container">
+        <h1>Projects</h1>
+        <div class="projects">
+            <a href="./shibuya_ramen_agent/" class="project-card">
+                <h2>渋谷区ラーメン店検索</h2>
+                <p>渋谷区のラーメン店情報を検索・フィルタリングできるWebアプリ。Claude Agent SDKを使用して自動収集したデータを表示。</p>
+                <span class="tag">Claude Agent SDK</span>
+                <span class="tag">30店舗</span>
+                <span class="tag">検索機能</span>
+            </a>
         </div>
-    </main>
-
-    <footer class="footer">
-        <p>データ収集日: 2026-01-20 12:00:00</p>
-        <p>Claude Agent SDK を使用して自動収集</p>
-    </footer>
-
-    <script>
-        // 店舗データ
-        const shops = [{"name": "らーめん はやし", "address": "東京都渋谷区道玄坂1-14-9 ソシアル道玄坂 1F", "area": "渋谷", "genre": "豚骨魚介", "rating": 4.5, "price_range": "900-1200円", "specialties": ["らーめん", "味玉らーめん", "焼豚らーめん"], "hours": "11:30〜15:30（スープなくなり次第終了）", "closed_days": "水曜・日曜・祝日", "url": "https://tabelog.com/tokyo/A1303/A130301/13003367/", "description": "渋谷で最も人気のラーメン店。動物系と魚介系を絶妙にブレンドした無化調スープが特徴。メニューはラーメン一本勝負で、開店前から行列ができる名店。ラーメン百名店に6年連続選出。"}, {"name": "中華麺店 喜楽", "address": "東京都渋谷区道玄坂2-17-6", "area": "渋谷", "genre": "中華そば", "rating": 4.3, "price_range": "850-1100円", "specialties": ["もやしワンタン麺", "チャーシュー麺", "中華麺"], "hours": "11:30〜20:30", "closed_days": "水曜日", "url": "https://tabelog.com/tokyo/A1303/A130301/13001705/", "description": "1952年創業の渋谷を代表する老舗中華そば店。フライドオニオン（揚げネギ）を初めてラーメンに入れた店とも言われる。百軒店通りで70年以上営業を続ける名店。"}, {"name": "ホープ軒 千駄ヶ谷本店", "address": "東京都渋谷区千駄ヶ谷2-33-9", "area": "千駄ヶ谷", "genre": "豚骨醤油（背脂）", "rating": 4.0, "price_range": "800-1000円", "specialties": ["中華そば", "ネギラーメン", "チャーシュー麺"], "hours": "24時間営業", "closed_days": "年中無休", "url": "https://www.hopeken.co.jp/", "description": "昭和35年創業、屋台から始まった老舗ラーメン店。元祖背脂入りラーメンが人気で、24時間営業。1階は立ち食いカウンター、ネギ入れ放題。"}, {"name": "麺屋ぬかじ", "address": "東京都渋谷区宇田川町36-6", "area": "渋谷", "genre": "つけ麺・魚介豚骨", "rating": 4.2, "price_range": "900-1200円", "specialties": ["つけ麺", "濃厚魚介つけ麺"], "hours": "11:00〜18:00", "closed_days": "日曜日", "url": null, "description": "渋谷の路地裏にひっそりと佇む名店。濃厚な鶏白湯スープに魚介の旨味が加わる。卵とご飯が無料サービスで提供される点も魅力。"}, {"name": "神泉のらぁめん屋 うさぎ", "address": "東京都渋谷区神泉町10-10", "area": "神泉", "genre": "担々麺", "rating": 4.3, "price_range": "900-1300円", "specialties": ["担々麺", "味噌ラーメン", "塩ラーメン"], "hours": "11:30〜14:30（昼営業のみ）", "closed_days": "土曜・日曜・祝日", "url": "https://ramendb.supleks.jp/s/10638.html", "description": "イタリアンバルのような外観のラーメン店。無化学調味料のスープで、担々麺が特に人気。外国人観光客にも大人気のスポット。2007年オープン、麺屋雄出身。"}, {"name": "麺の坊 砦", "address": "東京都渋谷区神泉町23-1", "area": "神泉", "genre": "豚骨", "rating": 4.1, "price_range": "850-1100円", "specialties": ["白湯豚骨ラーメン", "替え玉"], "hours": "11:30〜翌3:00", "closed_days": "水曜日", "url": "https://tabelog.com/tokyo/A1303/A130301/13003402/", "description": "一風堂出身の店主が2001年にオープン。博多ラーメン特有の臭みがない丁寧な白湯スープ。自家製ストレート細麺で、季節により配合や加水率を調整。"}, {"name": "蒙古タンメン中本 渋谷店", "address": "東京都渋谷区道玄坂2-6-1", "area": "渋谷", "genre": "辛味噌", "rating": 4.0, "price_range": "900-1300円", "specialties": ["蒙古タンメン", "冷やし味噌", "北極ラーメン"], "hours": "11:00〜23:30", "closed_days": "年中無休", "url": null, "description": "辛さと旨味が調和した唯一無二の辛味噌ラーメン店。冷やし味噌は定番メニュー。辛さレベルを選べる。"}, {"name": "横浜家系らーめん侍 渋谷本店", "address": "東京都渋谷区道玄坂2-6-6 和光ビル 1F", "area": "渋谷", "genre": "家系", "rating": 4.0, "price_range": "800-1100円", "specialties": ["ラーメン", "チャーシュー麺", "ライス"], "hours": "11:00〜21:00", "closed_days": "年中無休", "url": null, "description": "渋谷駅すぐそばで濃厚な豚骨醤油ラーメンが味わえる人気店。白濁した豚骨スープに鶏油のコクが加わり、パンチのある味わい。"}, {"name": "博多天神 渋谷南口店", "address": "東京都渋谷区道玄坂1-5-4 照力ビル 1F", "area": "渋谷", "genre": "博多豚骨", "rating": 3.8, "price_range": "500-900円", "specialties": ["博多ラーメン", "替え玉", "半熟煮玉子ラーメン"], "hours": "10:00〜04:00", "closed_days": "年中無休", "url": null, "description": "ワンコインから楽しめるリーズナブルな博多ラーメン。濃厚でありながら臭みが少なくクリーミーなスープ。深夜まで営業で飲み会後のシメにも人気。"}, {"name": "つけ麺道玄坂マンモス", "address": "東京都渋谷区道玄坂2-16-19", "area": "渋谷", "genre": "つけ麺", "rating": 4.1, "price_range": "800-1200円", "specialties": ["濃厚つけ麺", "極太胚芽麺", "極太もっちり麺"], "hours": "11:00〜23:00", "closed_days": "不定休", "url": null, "description": "渋谷駅から徒歩10分の大人気行列店。極太胚芽麺か極太もっちり麺から選べ、魚介感・豚骨感のある濃厚スープが特徴。"}, {"name": "野郎ラーメン 渋谷センター街総本店", "address": "東京都渋谷区宇田川町25-3 プリンス林ビル1F", "area": "渋谷", "genre": "二郎系", "rating": 3.8, "price_range": "800-1200円", "specialties": ["豚骨野郎", "味噌野郎", "野菜マシ"], "hours": "24時間営業", "closed_days": "年中無休", "url": null, "description": "センター街にある24時間営業の二郎系ラーメン店。国産材料でおよそ18時間炊き込んだ濃厚豚骨スープ。国産野菜300gたっぷりトッピング。"}, {"name": "らーめん526（こじろう）渋谷本店", "address": "東京都渋谷区宇田川町28-3", "area": "渋谷", "genre": "二郎系", "rating": 4.0, "price_range": "850-1200円", "specialties": ["ラーメン", "まぜそば", "つけ麺"], "hours": "11:00〜23:00", "closed_days": "不定休", "url": null, "description": "ラーメン二郎の元武蔵小杉店主が立ち上げた二郎系ラーメン店。濃厚な背脂とキレのある醤油ダレが特徴。毎日店内で製麺。"}, {"name": "凛 渋谷店", "address": "東京都渋谷区円山町5-18", "area": "渋谷", "genre": "二郎系", "rating": 4.0, "price_range": "900-1300円", "specialties": ["醤油ラーメン", "塩ラーメン", "ポン酢ラーメン"], "hours": "11:00〜22:00", "closed_days": "不定休", "url": "https://tabelog.com/tokyo/A1303/A130301/13121071/", "description": "二郎系「のスた」のDNAを継ぐ店。醤油や塩だけでなくポン酢味も楽しめる一風変わった二郎系。初心者でもさっぱり食べられる。"}, {"name": "らぁめん冠尾 恵比寿西店", "address": "東京都渋谷区恵比寿西1-3-10", "area": "恵比寿", "genre": "鶏白湯", "rating": 4.2, "price_range": "900-1300円", "specialties": ["純白湯らぁめん", "鶏白湯らぁめん", "つけ麺"], "hours": "11:30〜15:00 / 17:00〜22:00", "closed_days": "年中無休", "url": null, "description": "鶏白湯ラーメンの名店として恵比寿を代表する存在。鶏ガラ100%の濃厚ながらクリーミーでクセのないスープ。マッシュルームを使った洋風具材も特徴。"}, {"name": "手打 親鶏中華そば 綾川", "address": "東京都渋谷区恵比寿南2-3-14", "area": "恵比寿", "genre": "鶏白湯・手打ち麺", "rating": 4.4, "price_range": "1000-1400円", "specialties": ["親鶏中華そば", "手打ち麺"], "hours": "月〜木・日 11:00〜21:30 / 金・土 11:00〜22:30", "closed_days": "不定休", "url": null, "description": "2020年オープン直後から大行列の人気店。毎朝青竹で手打ちし一昼夜熟成させた麺。国産親鶏使用の黄金醤油スープ。"}, {"name": "AFURI 恵比寿", "address": "東京都渋谷区恵比寿1-1-7", "area": "恵比寿", "genre": "塩ラーメン（柚子塩）", "rating": 4.1, "price_range": "1080-1500円", "specialties": ["柚子塩らーめん", "柚子露つけ麺", "鶏油塩らーめん"], "hours": "11:00〜23:00", "closed_days": "年中無休", "url": "https://afuri.com/", "description": "神奈川県阿夫利山の清らかな水を使用した淡麗系ラーメン。鶏や魚介など多数の素材をバランス良くまとめた黄金色のスープと柚子の香りが特徴。"}, {"name": "おおぜき中華そば店", "address": "東京都渋谷区恵比寿1-4-1", "area": "恵比寿", "genre": "煮干しラーメン", "rating": 4.2, "price_range": "900-1200円", "specialties": ["味玉にぼしそば", "中華そば", "チャーシュー麺"], "hours": "11:00〜15:00 / 17:00〜22:00", "closed_days": "年中無休", "url": null, "description": "化学調味料不使用の煮干しラーメン。甲州の美桜鶏と豚ガラ、香味野菜のスープに低温調理チャーシュー。恵比寿神社前に位置。"}, {"name": "人類みな麺類 東京本店", "address": "東京都渋谷区恵比寿西2-10-8", "area": "恵比寿", "genre": "醤油ラーメン", "rating": 4.3, "price_range": "900-1400円", "specialties": ["らーめん原点", "micro", "macro"], "hours": "11:00〜23:30（土日祝 10:00〜23:30）", "closed_days": "年中無休", "url": null, "description": "大阪行列No.1ラーメン店の東京本店。化学調味料無添加スープと全粒粉配合自家製太麺。分厚く柔らかいチャーシューが特徴。"}, {"name": "九十九ラーメン 恵比寿本店", "address": "東京都渋谷区恵比寿4-11-9", "area": "恵比寿", "genre": "味噌チーズ", "rating": 4.0, "price_range": "900-1300円", "specialties": ["マルキュー味噌チーズラーメン", "味噌ラーメン"], "hours": "11:30〜23:00", "closed_days": "不定休", "url": null, "description": "長年恵比寿で不動の地位を築く人気店。パウダー状のフランスチーズが山盛りの味噌ラーメンはオリジナリティ溢れる一杯。"}, {"name": "味噌らーめん 柿田川ひばり 恵比寿本店", "address": "東京都渋谷区恵比寿1-22-20", "area": "恵比寿", "genre": "味噌ラーメン", "rating": 4.1, "price_range": "950-1300円", "specialties": ["味噌らーめん", "味噌カレーらーめん"], "hours": "11:30〜22:00", "closed_days": "不定休（臨時休業あり）", "url": null, "description": "5種類の生味噌を使用した濃厚でクリーミーなスープが特徴。味噌カレーらーめんも人気。"}, {"name": "焼きあご塩らー麺 たかはし 恵比寿店", "address": "東京都渋谷区恵比寿南1-1-1", "area": "恵比寿", "genre": "塩ラーメン（焼きあご）", "rating": 4.0, "price_range": "900-1300円", "specialties": ["特製焼きあご塩らー麺", "塩らー麺"], "hours": "11:00〜翌4:00", "closed_days": "年中無休", "url": null, "description": "焼きあご（飛び魚）主体の上品な塩スープ。平打ち縮れ麺との相性抜群。深夜4時まで営業。"}, {"name": "香湯ラーメン ちょろり 恵比寿店", "address": "東京都渋谷区恵比寿南1-2-8", "area": "恵比寿", "genre": "醤油ラーメン", "rating": 3.9, "price_range": "800-1100円", "specialties": ["香湯ラーメン", "醤油ラーメン"], "hours": "11:00〜23:00（L.O.22:30）", "closed_days": "日曜日", "url": null, "description": "台湾の揚げネギを浮かべた香湯ラーメンで人気。恵比寿ガーデンプレイスから歩いてすぐの坂の途中に位置。"}, {"name": "AFURI 原宿", "address": "東京都渋谷区千駄ヶ谷3-63-1 グランデフォレスタ1F", "area": "原宿", "genre": "塩ラーメン（柚子塩）", "rating": 4.1, "price_range": "1080-1500円", "specialties": ["柚子塩らーめん", "柚子露つけ麺"], "hours": "11:00〜23:00", "closed_days": "年中無休", "url": "https://afuri.com/", "description": "阿夫利山の水を使った淡麗系ラーメンの人気店。原宿駅から徒歩圏内で、キャッシュレス専門店。"}, {"name": "薬膳ラーメン 辛紅 原宿", "address": "東京都渋谷区神宮前4-29-9 Ondenビル 1F", "area": "原宿", "genre": "薬膳ラーメン", "rating": 4.0, "price_range": "1000-1400円", "specialties": ["薬膳ラーメン", "辛紅らーめん"], "hours": "11:00〜23:00", "closed_days": "年中無休", "url": null, "description": "AFURIをベースに2019年誕生。「旨辛酸っぱい」をコンセプトとした薬膳ラーメン。無辛〜超激辛まで10段階の辛さを選べる。完全キャッシュレス。"}, {"name": "BASSA NOVA 原宿店", "address": "東京都渋谷区神宮前1-14-34", "area": "原宿", "genre": "エスニック（グリーンカレー）", "rating": 4.0, "price_range": "1000-1400円", "specialties": ["グリーンカレーソバ", "ヴィーガンラーメン"], "hours": "12:00〜21:30", "closed_days": "年中無休", "url": null, "description": "国産干し椎茸、日高昆布、鰹節、煮干しの濃厚和風出汁に有機豆乳と自家製ペーストを合わせたエスニックラーメン。ヴィーガン対応メニューあり。"}, {"name": "一蘭 渋谷店", "address": "東京都渋谷区神南1-22-7", "area": "渋谷", "genre": "博多豚骨", "rating": 3.9, "price_range": "980-1500円", "specialties": ["天然とんこつラーメン", "替え玉"], "hours": "10:00〜翌6:00", "closed_days": "年中無休", "url": null, "description": "全国的に有名な豚骨ラーメン専門店。仕切りのある「味集中カウンター」で一人でも周囲を気にせず食べられる。濃厚でクリーミーなスープ。"}, {"name": "SHIBIRE NOODLES 蝋燭屋 表参道ヒルズ店", "address": "東京都渋谷区神宮前4-12-10 表参道ヒルズ B3F", "area": "表参道", "genre": "麻婆麺・担々麺", "rating": 4.1, "price_range": "1100-1500円", "specialties": ["麻婆麺", "担々麺", "汁なし担々麺"], "hours": "11:00〜23:00", "closed_days": "年中無休（表参道ヒルズに準ずる）", "url": null, "description": "2017年銀座で開店し多くのメディアで取り上げられる人気店。中国料理一筋20年の店主による「痺れ」の世界観を追求したラーメン。"}, {"name": "麺 銀座おのでら 本店", "address": "東京都渋谷区神宮前5-47-6", "area": "表参道", "genre": "醤油ラーメン", "rating": 4.2, "price_range": "1200-1800円", "specialties": ["特製らぁ麺", "鶏白湯らぁ麺"], "hours": "11:00〜15:00 / 17:00〜23:00", "closed_days": "年末年始", "url": null, "description": "ミシュラン1つ星「薪焼銀座おのでら」の料理長がプロデュースした和モダンなラーメン店。厳選された鶏をじっくり炊き上げたスープ、ハーブバターで味変も可能。"}, {"name": "九州じゃんがららあめん 原宿店", "address": "東京都渋谷区神宮前1-13-21", "area": "原宿", "genre": "豚骨", "rating": 3.8, "price_range": "800-1200円", "specialties": ["じゃんがら", "ぼんしゃん", "こぼんしゃん"], "hours": "11:00〜翌1:00", "closed_days": "年中無休", "url": null, "description": "1984年創業、九州の豚骨ラーメンをベースにした多彩なメニュー。豚骨・鶏ガラ・野菜をバランス良く配合したマイルドなスープ。"}];
-
-        // DOM 要素
-        const searchText = document.getElementById('searchText');
-        const areaFilter = document.getElementById('areaFilter');
-        const genreFilter = document.getElementById('genreFilter');
-        const sortOrder = document.getElementById('sortOrder');
-        const shopGrid = document.getElementById('shopGrid');
-        const resultCount = document.getElementById('resultCount');
-        const noResults = document.getElementById('noResults');
-
-        // 検索とフィルタリング
-        function filterAndSort() {
-            const query = searchText.value.toLowerCase();
-            const area = areaFilter.value;
-            const genre = genreFilter.value;
-            const sort = sortOrder.value;
-
-            let filtered = shops.filter(shop => {
-                // テキスト検索
-                if (query) {
-                    const searchFields = [
-                        shop.name,
-                        shop.address,
-                        shop.area,
-                        shop.genre,
-                        shop.description,
-                        ...(shop.specialties || [])
-                    ].filter(Boolean).join(' ').toLowerCase();
-
-                    if (!searchFields.includes(query)) {
-                        return false;
-                    }
-                }
-
-                // エリアフィルタ
-                if (area && shop.area !== area) {
-                    return false;
-                }
-
-                // ジャンルフィルタ
-                if (genre && shop.genre !== genre) {
-                    return false;
-                }
-
-                return true;
-            });
-
-            // ソート
-            filtered.sort((a, b) => {
-                switch (sort) {
-                    case 'rating':
-                        return (b.rating || 0) - (a.rating || 0);
-                    case 'area':
-                        return (a.area || '').localeCompare(b.area || '');
-                    case 'name':
-                    default:
-                        return (a.name || '').localeCompare(b.name || '');
-                }
-            });
-
-            renderShops(filtered);
-        }
-
-        // 店舗カードのレンダリング
-        function renderShops(filteredShops) {
-            resultCount.textContent = `${filteredShops.length} 店舗`;
-
-            if (filteredShops.length === 0) {
-                shopGrid.innerHTML = '';
-                noResults.style.display = 'block';
-                return;
-            }
-
-            noResults.style.display = 'none';
-
-            shopGrid.innerHTML = filteredShops.map(shop => `
-                <article class="shop-card">
-                    <div class="shop-header">
-                        <h2 class="shop-name">${escapeHtml(shop.name)}</h2>
-                        <div class="shop-area">📍 ${escapeHtml(shop.area || '渋谷区')}</div>
-                    </div>
-                    <div class="shop-body">
-                        <div class="shop-tags">
-                            ${shop.genre ? `<span class="tag genre">${escapeHtml(shop.genre)}</span>` : ''}
-                            ${shop.rating ? `<span class="tag rating">⭐ ${shop.rating}</span>` : ''}
-                            ${shop.price_range ? `<span class="tag">💰 ${escapeHtml(shop.price_range)}</span>` : ''}
-                        </div>
-                        <div class="shop-info">
-                            ${shop.address ? `<p><span class="icon">🏠</span>${escapeHtml(shop.address)}</p>` : ''}
-                            ${shop.hours ? `<p><span class="icon">🕐</span>${escapeHtml(shop.hours)}</p>` : ''}
-                            ${shop.closed_days ? `<p><span class="icon">📅</span>定休日: ${escapeHtml(shop.closed_days)}</p>` : ''}
-                        </div>
-                        ${shop.specialties && shop.specialties.length > 0 ? `
-                            <div class="specialties">
-                                <h4>おすすめ・特徴</h4>
-                                <div class="specialties-list">
-                                    ${shop.specialties.map(s => `<span class="specialty-item">${escapeHtml(s)}</span>`).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                        ${shop.description ? `<p class="shop-description">${escapeHtml(shop.description)}</p>` : ''}
-                        ${shop.url ? `<a href="${escapeHtml(shop.url)}" target="_blank" rel="noopener noreferrer" class="shop-link">詳細を見る →</a>` : ''}
-                    </div>
-                </article>
-            `).join('');
-        }
-
-        // HTML エスケープ
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // フィルタクリア
-        function clearFilters() {
-            searchText.value = '';
-            areaFilter.value = '';
-            genreFilter.value = '';
-            sortOrder.value = 'name';
-            filterAndSort();
-        }
-
-        // イベントリスナー
-        searchText.addEventListener('input', filterAndSort);
-        areaFilter.addEventListener('change', filterAndSort);
-        genreFilter.addEventListener('change', filterAndSort);
-        sortOrder.addEventListener('change', filterAndSort);
-
-        // 初期表示
-        filterAndSort();
-    </script>
+    </div>
 </body>
 </html>

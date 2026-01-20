@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-OUTPUT_DIR = Path(__file__).parent.parent / "docs"
+OUTPUT_DIR = Path(__file__).parent.parent / "docs" / "shibuya_ramen_agent"
 DATA_FILE = OUTPUT_DIR / "ramen_shops.json"
 
 
