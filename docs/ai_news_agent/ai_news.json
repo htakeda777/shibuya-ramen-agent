@@ -1,0 +1,400 @@
+{
+  "collected_at": "2026-01-20 15:30:00",
+  "total_count": 25,
+  "articles": [
+    {
+      "title": "xAI Raises $20B in Series E Funding Round",
+      "source": "TechCrunch",
+      "category": "AI Startups",
+      "date": "2026-01-06",
+      "summary": "Elon MuskのxAIが200億ドルのシリーズE資金調達を完了。NVIDIA、Cisco、Fidelityなどが参加し、企業価値は約2300億ドルに。Grok 4の開発とデータセンターインフラ拡張に充当予定。",
+      "url": "https://techcrunch.com/2026/01/06/xai-says-it-raised-20b-in-series-e-funding/",
+      "importance": "high",
+      "tags": [
+        "xAI",
+        "Elon Musk",
+        "Grok",
+        "funding",
+        "NVIDIA"
+      ]
+    },
+    {
+      "title": "Anthropic Unveils Claude Cowork: AI-Powered Digital Colleague",
+      "source": "Axios",
+      "category": "LLM",
+      "date": "2026-01-12",
+      "summary": "AnthropicがClaude Coworkを発表。非コーダー向けの日常業務支援ツールで、Claude Codeを使用して完全にAIが構築。MaxおよびProサブスクライバーに提供開始。",
+      "url": "https://www.axios.com/2026/01/13/anthropic-claude-code-cowork-vibe-coding",
+      "importance": "high",
+      "tags": [
+        "Anthropic",
+        "Claude",
+        "Cowork",
+        "vibe coding",
+        "agents"
+      ]
+    },
+    {
+      "title": "OpenAI Introduces GPT-5.2 with Record-Breaking Benchmarks",
+      "source": "OpenAI",
+      "category": "LLM",
+      "date": "2025-12-11",
+      "summary": "OpenAIがGPT-5.2をリリース。ARC-AGI-1で90%超、AIME 2025で100%、FrontierMathで40.3%を達成。400Kコンテキストウィンドウと128K出力トークンを搭載。",
+      "url": "https://openai.com/index/introducing-gpt-5-2/",
+      "importance": "high",
+      "tags": [
+        "OpenAI",
+        "GPT-5.2",
+        "benchmarks",
+        "reasoning"
+      ]
+    },
+    {
+      "title": "Google DeepMind Announces Gemini 3 as Major Step Toward AGI",
+      "source": "Google Blog",
+      "category": "LLM",
+      "date": "2026-01-08",
+      "summary": "Google DeepMindがGemini 3を発表。マルチモーダル理解で世界最高性能を謳い、100万トークンのコンテキストウィンドウを搭載。Gemini 3 Deep Thinkモードも導入。",
+      "url": "https://blog.google/products/gemini/gemini-3/",
+      "importance": "high",
+      "tags": [
+        "Google",
+        "DeepMind",
+        "Gemini 3",
+        "multimodal",
+        "AGI"
+      ]
+    },
+    {
+      "title": "NVIDIA Unveils Vera Rubin AI Platform at CES 2026",
+      "source": "NVIDIA Blog",
+      "category": "Industry",
+      "date": "2026-01-07",
+      "summary": "NVIDIAがCES 2026でVera Rubinプラットフォームを発表。Blackwell後継として、同等MoEモデルのトレーニングに必要なGPU数を4分の1に削減。2026年後半に提供開始予定。",
+      "url": "https://blogs.nvidia.com/blog/2026-ces-special-presentation/",
+      "importance": "high",
+      "tags": [
+        "NVIDIA",
+        "Vera Rubin",
+        "CES 2026",
+        "GPU",
+        "AI infrastructure"
+      ]
+    },
+    {
+      "title": "Jensen Huang Declares 'ChatGPT Moment for Physical AI'",
+      "source": "Axios",
+      "category": "Robotics",
+      "date": "2026-01-05",
+      "summary": "NVIDIAのJensen Huang CEOがCES 2026で物理AIのブレークスルーを宣言。Cosmos Reason 2やIsaac GR00T N1.6など、ロボット向けオープンモデルをリリース。",
+      "url": "https://www.axios.com/2026/01/05/nvidia-ces-2026-jensen-huang-speech-ai",
+      "importance": "high",
+      "tags": [
+        "NVIDIA",
+        "robotics",
+        "physical AI",
+        "Jensen Huang",
+        "CES 2026"
+      ]
+    },
+    {
+      "title": "Boston Dynamics and DeepMind Integrate Gemini 3 into Electric Atlas",
+      "source": "Financial Content",
+      "category": "Robotics",
+      "date": "2026-01-09",
+      "summary": "Boston DynamicsとGoogle DeepMindがCES 2026で電動Atlas humanoidへのGemini 3統合を発表。56自由度、7.5フィートリーチ、110ポンド積載能力を実現。",
+      "url": "https://markets.financialcontent.com/wral/article/tokenring-2026-1-9-the-robot-that-thinks-google-deepmind-and-boston-dynamics-unveil-gemini-3-powered-atlas",
+      "importance": "high",
+      "tags": [
+        "Boston Dynamics",
+        "Atlas",
+        "Google DeepMind",
+        "Gemini 3",
+        "humanoid"
+      ]
+    },
+    {
+      "title": "Skild AI Reaches $14B Valuation After $1.4B Funding Round",
+      "source": "TechCrunch",
+      "category": "AI Startups",
+      "date": "2026-01-14",
+      "summary": "汎用ロボットソフトウェアのSkild AIがSoftBank主導で14億ドルを調達、評価額は140億ドルに。NVIDIAやMacquarie Groupも参加。",
+      "url": "https://techcrunch.com/2026/01/14/robotic-software-maker-skild-ai-hits-14b-valuation/",
+      "importance": "high",
+      "tags": [
+        "Skild AI",
+        "robotics",
+        "SoftBank",
+        "funding",
+        "startup"
+      ]
+    },
+    {
+      "title": "Meta Launches Meta Compute AI Infrastructure Initiative",
+      "source": "TechCrunch",
+      "category": "Industry",
+      "date": "2026-01-12",
+      "summary": "Mark ZuckerbergがMeta Computeを発表。今後10年間で数十ギガワット、将来的には数百ギガワット以上のAIインフラ構築を計画。",
+      "url": "https://techcrunch.com/2026/01/12/mark-zuckerberg-says-meta-is-launching-its-own-ai-infrastructure-initiative/",
+      "importance": "high",
+      "tags": [
+        "Meta",
+        "Mark Zuckerberg",
+        "AI infrastructure",
+        "data centers"
+      ]
+    },
+    {
+      "title": "Apple Partners with Google for Gemini-Powered Siri",
+      "source": "Various Sources",
+      "category": "Industry",
+      "date": "2026-01-12",
+      "summary": "AppleがGoogleと提携し、次世代Apple Foundation ModelとSiriにGemini AIを採用することを発表。",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "importance": "high",
+      "tags": [
+        "Apple",
+        "Google",
+        "Gemini",
+        "Siri",
+        "partnership"
+      ]
+    },
+    {
+      "title": "OpenAI for Healthcare Launches with Major Hospital Partners",
+      "source": "OpenAI",
+      "category": "Industry",
+      "date": "2026-01-10",
+      "summary": "OpenAIがHIPAA準拠のヘルスケア向け製品群を発表。AdventHealth、Boston Children's Hospital、Stanford Medicine等の主要医療機関で展開開始。",
+      "url": "https://openai.com/index/openai-for-healthcare/",
+      "importance": "high",
+      "tags": [
+        "OpenAI",
+        "healthcare",
+        "HIPAA",
+        "ChatGPT Health"
+      ]
+    },
+    {
+      "title": "Anthropic Announces Claude for Healthcare",
+      "source": "TechCrunch",
+      "category": "Industry",
+      "date": "2026-01-12",
+      "summary": "AnthropicがClaude for Healthcareを発表。プロバイダー、保険者、患者向けツールセットで、スマートウォッチ等からの健康データ同期機能を搭載。",
+      "url": "https://techcrunch.com/2026/01/12/anthropic-announces-claude-for-healthcare-following-openais-chatgpt-health-reveal/",
+      "importance": "medium",
+      "tags": [
+        "Anthropic",
+        "Claude",
+        "healthcare",
+        "medical AI"
+      ]
+    },
+    {
+      "title": "California AI Laws Take Effect January 1, 2026",
+      "source": "Wilson Sonsini",
+      "category": "Regulation",
+      "date": "2026-01-01",
+      "summary": "カリフォルニア州のAI透明性法、AI安全法、AIコンパニオンチャットボット規制法が施行。開発者への安全性情報公開義務や未成年者保護措置を規定。",
+      "url": "https://www.wsgr.com/en/insights/2026-year-in-preview-ai-regulatory-developments-for-companies-to-watch-out-for.html",
+      "importance": "high",
+      "tags": [
+        "California",
+        "AI regulation",
+        "transparency",
+        "safety",
+        "compliance"
+      ]
+    },
+    {
+      "title": "Trump Administration Issues AI Federal Preemption Executive Order",
+      "source": "King & Spalding",
+      "category": "Regulation",
+      "date": "2025-12-11",
+      "summary": "ホワイトハウスが州AI法の連邦先占を目指す大統領令を発出。AI訴訟タスクフォース設立と、州法の評価・異議申し立てを指示。",
+      "url": "https://www.kslaw.com/news-and-insights/new-state-ai-laws-are-effective-on-january-1-2026-but-a-new-executive-order-signals-disruption",
+      "importance": "high",
+      "tags": [
+        "Trump",
+        "executive order",
+        "federal preemption",
+        "AI regulation",
+        "states"
+      ]
+    },
+    {
+      "title": "EU AI Act Rules Coming Into Force August 2026",
+      "source": "Greenberg Traurig",
+      "category": "Regulation",
+      "date": "2026-01-15",
+      "summary": "EU AI Actの主要規定が2026年8月2日に施行予定。高リスクAIシステムへの透明性要件と具体的ルールを適用。欧州委員会が実施ガイダンスを準備中。",
+      "url": "https://www.gtlaw.com/en/insights/2025/12/2026-outlook-artificial-intelligence",
+      "importance": "high",
+      "tags": [
+        "EU",
+        "AI Act",
+        "regulation",
+        "compliance",
+        "Europe"
+      ]
+    },
+    {
+      "title": "Google Announces Universal Commerce Protocol for AI Agent Shopping",
+      "source": "TechCrunch",
+      "category": "Industry",
+      "date": "2026-01-11",
+      "summary": "GoogleがNational Retail Federationでユニバーサルコマースプロトコル(UCP)を発表。Shopify、Etsy、Target、Walmartと共同開発したAIエージェント向けショッピング標準。",
+      "url": "https://techcrunch.com/2026/01/11/google-announces-a-new-protocol-to-facilitate-commerce-using-ai-agents/",
+      "importance": "medium",
+      "tags": [
+        "Google",
+        "commerce",
+        "AI agents",
+        "shopping",
+        "protocol"
+      ]
+    },
+    {
+      "title": "Motional Reboots Robotaxi Plans with AI-First Approach",
+      "source": "TechCrunch",
+      "category": "Robotics",
+      "date": "2026-01-11",
+      "summary": "MotionalがAIファースト戦略でロボタクシー計画を再始動。2026年末までにラスベガスで商用ドライバーレスサービス開始を目指す。",
+      "url": "https://techcrunch.com/2026/01/11/motional-puts-ai-at-center-of-robotaxi-reboot-as-it-targets-2026-for-driverless-service/",
+      "importance": "medium",
+      "tags": [
+        "Motional",
+        "robotaxi",
+        "autonomous vehicles",
+        "Las Vegas"
+      ]
+    },
+    {
+      "title": "US Imposes 25% Tariff on NVIDIA AI Chips to China",
+      "source": "TechCrunch",
+      "category": "Regulation",
+      "date": "2026-01-15",
+      "summary": "トランプ大統領がNVIDIA H200等の先進AIチップに対し25%関税を課す布告に署名。米国経由で他国に輸出される半導体が対象。",
+      "url": "https://techcrunch.com/2026/01/15/the-us-imposes-25-tariff-on-nvidias-h200-ai-chips-headed-to-china/",
+      "importance": "high",
+      "tags": [
+        "tariff",
+        "NVIDIA",
+        "China",
+        "H200",
+        "trade policy"
+      ]
+    },
+    {
+      "title": "NEO Humanoid Robot Deliveries Begin 2026 at $20K or $499/month",
+      "source": "Interesting Engineering",
+      "category": "Robotics",
+      "date": "2026-01-08",
+      "summary": "1XのNEO汎用humanoidロボットが2026年に米国で配送開始予定。家庭環境での日常タスク実行を目的とし、価格は$20Kまたは月額$499。",
+      "url": "https://interestingengineering.com/ai-robotics/9-humanoid-robots-at-ces-2026",
+      "importance": "medium",
+      "tags": [
+        "1X",
+        "NEO",
+        "humanoid",
+        "consumer robotics",
+        "home"
+      ]
+    },
+    {
+      "title": "Meta's Llama 4 Benchmark Manipulation Confirmed by Yann LeCun",
+      "source": "Fast Company",
+      "category": "AI Ethics",
+      "date": "2026-01-07",
+      "summary": "MetaのAI科学者Yann LeCunがLlama 4のベンチマーク結果操作を認める。異なるベンチマークに異なるモデルバージョンを使用し、最良結果を選択していたと告白。",
+      "url": "https://www.fastcompany.com/91469583/yann-lecun-meta-llama-4-model-zuckerberg",
+      "importance": "high",
+      "tags": [
+        "Meta",
+        "Llama 4",
+        "benchmarks",
+        "Yann LeCun",
+        "ethics"
+      ]
+    },
+    {
+      "title": "Yann LeCun Departs Meta to Start Advanced Machine Intelligence Labs",
+      "source": "Digitimes",
+      "category": "Industry",
+      "date": "2026-01-07",
+      "summary": "AI先駆者Yann LeCunが10年以上在籍したMetaを退社し、新AIリサーチベンチャーAdvanced Machine Intelligence Labsを設立。LLM偏重の研究文化への不満を表明。",
+      "url": "https://www.digitimes.com/news/a20260107PD241/meta-llama-ai-llm.html",
+      "importance": "high",
+      "tags": [
+        "Yann LeCun",
+        "Meta",
+        "departure",
+        "AI research",
+        "startup"
+      ]
+    },
+    {
+      "title": "AI Scientists Publish 3x More Papers but Narrow Research Focus",
+      "source": "Nature",
+      "category": "Research",
+      "date": "2026-01-10",
+      "summary": "4130万本の研究論文分析で、AI活用研究者は3.02倍多くの論文を発表し4.84倍の引用を獲得。一方でAIは研究多様性を狭め、データリッチな領域に集中させる傾向。",
+      "url": "https://www.nature.com/articles/s41586-025-09922-y",
+      "importance": "medium",
+      "tags": [
+        "research",
+        "Nature",
+        "AI impact",
+        "academia",
+        "publications"
+      ]
+    },
+    {
+      "title": "Anthropic's MCP Protocol Donated to Linux Foundation",
+      "source": "MIT Technology Review",
+      "category": "Industry",
+      "date": "2026-01-05",
+      "summary": "AnthropicのModel Context Protocol (MCP)がLinux FoundationのAgentic AI Foundationに寄贈。OpenAIとMicrosoftも採用を表明し、AIエージェントの標準プロトコルとして定着。",
+      "url": "https://www.technologyreview.com/2026/01/05/1130662/whats-next-for-ai-in-2026/",
+      "importance": "high",
+      "tags": [
+        "Anthropic",
+        "MCP",
+        "Linux Foundation",
+        "protocol",
+        "agents"
+      ]
+    },
+    {
+      "title": "OpenAI Bets Big on Audio AI for Personal Device",
+      "source": "TechCrunch",
+      "category": "Industry",
+      "date": "2026-01-01",
+      "summary": "OpenAIがオーディオファーストのパーソナルデバイス開発に向け、エンジニアリング・製品・研究チームを統合。約1年後のローンチを予定。",
+      "url": "https://techcrunch.com/2026/01/01/openai-bets-big-on-audio-as-silicon-valley-declares-war-on-screens/",
+      "importance": "medium",
+      "tags": [
+        "OpenAI",
+        "audio AI",
+        "personal device",
+        "hardware"
+      ]
+    },
+    {
+      "title": "California DOJ Probes xAI Over Grok Deepfake Issues",
+      "source": "CNBC",
+      "category": "AI Ethics",
+      "date": "2026-01-14",
+      "summary": "カリフォルニア州司法省がxAIのGrokによるディープフェイク露骨画像生成問題を調査開始。200億ドル資金調達直後の逆風に。",
+      "url": "https://www.cnbc.com/2026/01/14/elon-musk-xai-california-grok-investigation.html",
+      "importance": "high",
+      "tags": [
+        "xAI",
+        "Grok",
+        "deepfake",
+        "California",
+        "investigation"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Aggregator</title>
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #00a8cc;
+            --bg-dark: #0a0f1a;
+            --bg-card: #1a2332;
+            --bg-card-hover: #243046;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --border: #2d3748;
+            --high: #ff4d6d;
+            --medium: #ffc107;
+            --low: #28a745;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, #00ffaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .filter-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+        }
+
+        .search-input input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .filter-group select {
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-group select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stats-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .stats-text strong {
+            color: var(--primary);
+        }
+
+        .clear-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .news-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-category {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .badge-importance {
+            border: none;
+        }
+
+        .badge-importance.high {
+            background: rgba(255, 77, 109, 0.2);
+            color: var(--high);
+        }
+
+        .badge-importance.medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--medium);
+        }
+
+        .badge-importance.low {
+            background: rgba(40, 167, 69, 0.2);
+            color: var(--low);
+        }
+
+        .news-source {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .news-title a:hover {
+            color: var(--primary);
+        }
+
+        .news-body {
+            padding: 1.25rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-summary {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .news-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .tag {
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 1.5rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            .filter-group select {
+                width: 100%;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>AI News Aggregator</h1>
+        <p>AI 関連の最新ニュースを検索・フィルタリング</p>
+    </header>
+
+    <main class="container">
+        <section class="filter-section">
+            <div class="search-row">
+                <div class="search-input">
+                    <input type="text" id="searchText" placeholder="キーワードで検索（タイトル、要約、タグ）...">
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <select id="categoryFilter">
+                        <option value="">全カテゴリ</option>
+                        <option value="AI Ethics">AI Ethics</option>
+<option value="AI Startups">AI Startups</option>
+<option value="Industry">Industry</option>
+<option value="LLM">LLM</option>
+<option value="Regulation">Regulation</option>
+<option value="Research">Research</option>
+<option value="Robotics">Robotics</option>
+                    </select>
+                    <select id="sourceFilter">
+                        <option value="">全ソース</option>
+                        <option value="Axios">Axios</option>
+<option value="CNBC">CNBC</option>
+<option value="Digitimes">Digitimes</option>
+<option value="Fast Company">Fast Company</option>
+<option value="Financial Content">Financial Content</option>
+<option value="Google Blog">Google Blog</option>
+<option value="Greenberg Traurig">Greenberg Traurig</option>
+<option value="Interesting Engineering">Interesting Engineering</option>
+<option value="King & Spalding">King & Spalding</option>
+<option value="MIT Technology Review">MIT Technology Review</option>
+<option value="NVIDIA Blog">NVIDIA Blog</option>
+<option value="Nature">Nature</option>
+<option value="OpenAI">OpenAI</option>
+<option value="TechCrunch">TechCrunch</option>
+<option value="Various Sources">Various Sources</option>
+<option value="Wilson Sonsini">Wilson Sonsini</option>
+                    </select>
+                    <select id="importanceFilter">
+                        <option value="">全重要度</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select id="sortOrder">
+                        <option value="date">日付順（新しい順）</option>
+                        <option value="importance">重要度順</option>
+                        <option value="source">ソース順</option>
+                        <option value="category">カテゴリ順</option>
+                    </select>
+                </div>
+            </div>
+            <div class="stats-bar">
+                <span class="stats-text">表示中: <strong id="resultCount">25</strong> 件 / 全 25 件</span>
+                <button class="clear-btn" onclick="clearFilters()">フィルターをクリア</button>
+            </div>
+        </section>
+
+        <section class="news-grid" id="newsGrid">
+            <!-- ニュースカードがここに動的に挿入される -->
+        </section>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>該当するニュースがありません</h3>
+            <p>検索条件を変更してお試しください</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>データ収集日時: 2026-01-20 15:30:00</p>
+        <p>Claude Agent SDK を使用して自動収集</p>
+    </footer>
+
+    <script>
+        // ニュースデータ
+        const articles = [{"title": "xAI Raises $20B in Series E Funding Round", "source": "TechCrunch", "category": "AI Startups", "date": "2026-01-06", "summary": "Elon MuskのxAIが200億ドルのシリーズE資金調達を完了。NVIDIA、Cisco、Fidelityなどが参加し、企業価値は約2300億ドルに。Grok 4の開発とデータセンターインフラ拡張に充当予定。", "url": "https://techcrunch.com/2026/01/06/xai-says-it-raised-20b-in-series-e-funding/", "importance": "high", "tags": ["xAI", "Elon Musk", "Grok", "funding", "NVIDIA"]}, {"title": "Anthropic Unveils Claude Cowork: AI-Powered Digital Colleague", "source": "Axios", "category": "LLM", "date": "2026-01-12", "summary": "AnthropicがClaude Coworkを発表。非コーダー向けの日常業務支援ツールで、Claude Codeを使用して完全にAIが構築。MaxおよびProサブスクライバーに提供開始。", "url": "https://www.axios.com/2026/01/13/anthropic-claude-code-cowork-vibe-coding", "importance": "high", "tags": ["Anthropic", "Claude", "Cowork", "vibe coding", "agents"]}, {"title": "OpenAI Introduces GPT-5.2 with Record-Breaking Benchmarks", "source": "OpenAI", "category": "LLM", "date": "2025-12-11", "summary": "OpenAIがGPT-5.2をリリース。ARC-AGI-1で90%超、AIME 2025で100%、FrontierMathで40.3%を達成。400Kコンテキストウィンドウと128K出力トークンを搭載。", "url": "https://openai.com/index/introducing-gpt-5-2/", "importance": "high", "tags": ["OpenAI", "GPT-5.2", "benchmarks", "reasoning"]}, {"title": "Google DeepMind Announces Gemini 3 as Major Step Toward AGI", "source": "Google Blog", "category": "LLM", "date": "2026-01-08", "summary": "Google DeepMindがGemini 3を発表。マルチモーダル理解で世界最高性能を謳い、100万トークンのコンテキストウィンドウを搭載。Gemini 3 Deep Thinkモードも導入。", "url": "https://blog.google/products/gemini/gemini-3/", "importance": "high", "tags": ["Google", "DeepMind", "Gemini 3", "multimodal", "AGI"]}, {"title": "NVIDIA Unveils Vera Rubin AI Platform at CES 2026", "source": "NVIDIA Blog", "category": "Industry", "date": "2026-01-07", "summary": "NVIDIAがCES 2026でVera Rubinプラットフォームを発表。Blackwell後継として、同等MoEモデルのトレーニングに必要なGPU数を4分の1に削減。2026年後半に提供開始予定。", "url": "https://blogs.nvidia.com/blog/2026-ces-special-presentation/", "importance": "high", "tags": ["NVIDIA", "Vera Rubin", "CES 2026", "GPU", "AI infrastructure"]}, {"title": "Jensen Huang Declares 'ChatGPT Moment for Physical AI'", "source": "Axios", "category": "Robotics", "date": "2026-01-05", "summary": "NVIDIAのJensen Huang CEOがCES 2026で物理AIのブレークスルーを宣言。Cosmos Reason 2やIsaac GR00T N1.6など、ロボット向けオープンモデルをリリース。", "url": "https://www.axios.com/2026/01/05/nvidia-ces-2026-jensen-huang-speech-ai", "importance": "high", "tags": ["NVIDIA", "robotics", "physical AI", "Jensen Huang", "CES 2026"]}, {"title": "Boston Dynamics and DeepMind Integrate Gemini 3 into Electric Atlas", "source": "Financial Content", "category": "Robotics", "date": "2026-01-09", "summary": "Boston DynamicsとGoogle DeepMindがCES 2026で電動Atlas humanoidへのGemini 3統合を発表。56自由度、7.5フィートリーチ、110ポンド積載能力を実現。", "url": "https://markets.financialcontent.com/wral/article/tokenring-2026-1-9-the-robot-that-thinks-google-deepmind-and-boston-dynamics-unveil-gemini-3-powered-atlas", "importance": "high", "tags": ["Boston Dynamics", "Atlas", "Google DeepMind", "Gemini 3", "humanoid"]}, {"title": "Skild AI Reaches $14B Valuation After $1.4B Funding Round", "source": "TechCrunch", "category": "AI Startups", "date": "2026-01-14", "summary": "汎用ロボットソフトウェアのSkild AIがSoftBank主導で14億ドルを調達、評価額は140億ドルに。NVIDIAやMacquarie Groupも参加。", "url": "https://techcrunch.com/2026/01/14/robotic-software-maker-skild-ai-hits-14b-valuation/", "importance": "high", "tags": ["Skild AI", "robotics", "SoftBank", "funding", "startup"]}, {"title": "Meta Launches Meta Compute AI Infrastructure Initiative", "source": "TechCrunch", "category": "Industry", "date": "2026-01-12", "summary": "Mark ZuckerbergがMeta Computeを発表。今後10年間で数十ギガワット、将来的には数百ギガワット以上のAIインフラ構築を計画。", "url": "https://techcrunch.com/2026/01/12/mark-zuckerberg-says-meta-is-launching-its-own-ai-infrastructure-initiative/", "importance": "high", "tags": ["Meta", "Mark Zuckerberg", "AI infrastructure", "data centers"]}, {"title": "Apple Partners with Google for Gemini-Powered Siri", "source": "Various Sources", "category": "Industry", "date": "2026-01-12", "summary": "AppleがGoogleと提携し、次世代Apple Foundation ModelとSiriにGemini AIを採用することを発表。", "url": "https://ai.google.dev/gemini-api/docs/changelog", "importance": "high", "tags": ["Apple", "Google", "Gemini", "Siri", "partnership"]}, {"title": "OpenAI for Healthcare Launches with Major Hospital Partners", "source": "OpenAI", "category": "Industry", "date": "2026-01-10", "summary": "OpenAIがHIPAA準拠のヘルスケア向け製品群を発表。AdventHealth、Boston Children's Hospital、Stanford Medicine等の主要医療機関で展開開始。", "url": "https://openai.com/index/openai-for-healthcare/", "importance": "high", "tags": ["OpenAI", "healthcare", "HIPAA", "ChatGPT Health"]}, {"title": "Anthropic Announces Claude for Healthcare", "source": "TechCrunch", "category": "Industry", "date": "2026-01-12", "summary": "AnthropicがClaude for Healthcareを発表。プロバイダー、保険者、患者向けツールセットで、スマートウォッチ等からの健康データ同期機能を搭載。", "url": "https://techcrunch.com/2026/01/12/anthropic-announces-claude-for-healthcare-following-openais-chatgpt-health-reveal/", "importance": "medium", "tags": ["Anthropic", "Claude", "healthcare", "medical AI"]}, {"title": "California AI Laws Take Effect January 1, 2026", "source": "Wilson Sonsini", "category": "Regulation", "date": "2026-01-01", "summary": "カリフォルニア州のAI透明性法、AI安全法、AIコンパニオンチャットボット規制法が施行。開発者への安全性情報公開義務や未成年者保護措置を規定。", "url": "https://www.wsgr.com/en/insights/2026-year-in-preview-ai-regulatory-developments-for-companies-to-watch-out-for.html", "importance": "high", "tags": ["California", "AI regulation", "transparency", "safety", "compliance"]}, {"title": "Trump Administration Issues AI Federal Preemption Executive Order", "source": "King & Spalding", "category": "Regulation", "date": "2025-12-11", "summary": "ホワイトハウスが州AI法の連邦先占を目指す大統領令を発出。AI訴訟タスクフォース設立と、州法の評価・異議申し立てを指示。", "url": "https://www.kslaw.com/news-and-insights/new-state-ai-laws-are-effective-on-january-1-2026-but-a-new-executive-order-signals-disruption", "importance": "high", "tags": ["Trump", "executive order", "federal preemption", "AI regulation", "states"]}, {"title": "EU AI Act Rules Coming Into Force August 2026", "source": "Greenberg Traurig", "category": "Regulation", "date": "2026-01-15", "summary": "EU AI Actの主要規定が2026年8月2日に施行予定。高リスクAIシステムへの透明性要件と具体的ルールを適用。欧州委員会が実施ガイダンスを準備中。", "url": "https://www.gtlaw.com/en/insights/2025/12/2026-outlook-artificial-intelligence", "importance": "high", "tags": ["EU", "AI Act", "regulation", "compliance", "Europe"]}, {"title": "Google Announces Universal Commerce Protocol for AI Agent Shopping", "source": "TechCrunch", "category": "Industry", "date": "2026-01-11", "summary": "GoogleがNational Retail Federationでユニバーサルコマースプロトコル(UCP)を発表。Shopify、Etsy、Target、Walmartと共同開発したAIエージェント向けショッピング標準。", "url": "https://techcrunch.com/2026/01/11/google-announces-a-new-protocol-to-facilitate-commerce-using-ai-agents/", "importance": "medium", "tags": ["Google", "commerce", "AI agents", "shopping", "protocol"]}, {"title": "Motional Reboots Robotaxi Plans with AI-First Approach", "source": "TechCrunch", "category": "Robotics", "date": "2026-01-11", "summary": "MotionalがAIファースト戦略でロボタクシー計画を再始動。2026年末までにラスベガスで商用ドライバーレスサービス開始を目指す。", "url": "https://techcrunch.com/2026/01/11/motional-puts-ai-at-center-of-robotaxi-reboot-as-it-targets-2026-for-driverless-service/", "importance": "medium", "tags": ["Motional", "robotaxi", "autonomous vehicles", "Las Vegas"]}, {"title": "US Imposes 25% Tariff on NVIDIA AI Chips to China", "source": "TechCrunch", "category": "Regulation", "date": "2026-01-15", "summary": "トランプ大統領がNVIDIA H200等の先進AIチップに対し25%関税を課す布告に署名。米国経由で他国に輸出される半導体が対象。", "url": "https://techcrunch.com/2026/01/15/the-us-imposes-25-tariff-on-nvidias-h200-ai-chips-headed-to-china/", "importance": "high", "tags": ["tariff", "NVIDIA", "China", "H200", "trade policy"]}, {"title": "NEO Humanoid Robot Deliveries Begin 2026 at $20K or $499/month", "source": "Interesting Engineering", "category": "Robotics", "date": "2026-01-08", "summary": "1XのNEO汎用humanoidロボットが2026年に米国で配送開始予定。家庭環境での日常タスク実行を目的とし、価格は$20Kまたは月額$499。", "url": "https://interestingengineering.com/ai-robotics/9-humanoid-robots-at-ces-2026", "importance": "medium", "tags": ["1X", "NEO", "humanoid", "consumer robotics", "home"]}, {"title": "Meta's Llama 4 Benchmark Manipulation Confirmed by Yann LeCun", "source": "Fast Company", "category": "AI Ethics", "date": "2026-01-07", "summary": "MetaのAI科学者Yann LeCunがLlama 4のベンチマーク結果操作を認める。異なるベンチマークに異なるモデルバージョンを使用し、最良結果を選択していたと告白。", "url": "https://www.fastcompany.com/91469583/yann-lecun-meta-llama-4-model-zuckerberg", "importance": "high", "tags": ["Meta", "Llama 4", "benchmarks", "Yann LeCun", "ethics"]}, {"title": "Yann LeCun Departs Meta to Start Advanced Machine Intelligence Labs", "source": "Digitimes", "category": "Industry", "date": "2026-01-07", "summary": "AI先駆者Yann LeCunが10年以上在籍したMetaを退社し、新AIリサーチベンチャーAdvanced Machine Intelligence Labsを設立。LLM偏重の研究文化への不満を表明。", "url": "https://www.digitimes.com/news/a20260107PD241/meta-llama-ai-llm.html", "importance": "high", "tags": ["Yann LeCun", "Meta", "departure", "AI research", "startup"]}, {"title": "AI Scientists Publish 3x More Papers but Narrow Research Focus", "source": "Nature", "category": "Research", "date": "2026-01-10", "summary": "4130万本の研究論文分析で、AI活用研究者は3.02倍多くの論文を発表し4.84倍の引用を獲得。一方でAIは研究多様性を狭め、データリッチな領域に集中させる傾向。", "url": "https://www.nature.com/articles/s41586-025-09922-y", "importance": "medium", "tags": ["research", "Nature", "AI impact", "academia", "publications"]}, {"title": "Anthropic's MCP Protocol Donated to Linux Foundation", "source": "MIT Technology Review", "category": "Industry", "date": "2026-01-05", "summary": "AnthropicのModel Context Protocol (MCP)がLinux FoundationのAgentic AI Foundationに寄贈。OpenAIとMicrosoftも採用を表明し、AIエージェントの標準プロトコルとして定着。", "url": "https://www.technologyreview.com/2026/01/05/1130662/whats-next-for-ai-in-2026/", "importance": "high", "tags": ["Anthropic", "MCP", "Linux Foundation", "protocol", "agents"]}, {"title": "OpenAI Bets Big on Audio AI for Personal Device", "source": "TechCrunch", "category": "Industry", "date": "2026-01-01", "summary": "OpenAIがオーディオファーストのパーソナルデバイス開発に向け、エンジニアリング・製品・研究チームを統合。約1年後のローンチを予定。", "url": "https://techcrunch.com/2026/01/01/openai-bets-big-on-audio-as-silicon-valley-declares-war-on-screens/", "importance": "medium", "tags": ["OpenAI", "audio AI", "personal device", "hardware"]}, {"title": "California DOJ Probes xAI Over Grok Deepfake Issues", "source": "CNBC", "category": "AI Ethics", "date": "2026-01-14", "summary": "カリフォルニア州司法省がxAIのGrokによるディープフェイク露骨画像生成問題を調査開始。200億ドル資金調達直後の逆風に。", "url": "https://www.cnbc.com/2026/01/14/elon-musk-xai-california-grok-investigation.html", "importance": "high", "tags": ["xAI", "Grok", "deepfake", "California", "investigation"]}];
+        const totalCount = 25;
+
+        // DOM 要素
+        const searchText = document.getElementById('searchText');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sourceFilter = document.getElementById('sourceFilter');
+        const importanceFilter = document.getElementById('importanceFilter');
+        const sortOrder = document.getElementById('sortOrder');
+        const newsGrid = document.getElementById('newsGrid');
+        const resultCount = document.getElementById('resultCount');
+        const noResults = document.getElementById('noResults');
+
+        // 重要度の優先順位
+        const importancePriority = { 'high': 0, 'medium': 1, 'low': 2 };
+
+        // 検索とフィルタリング
+        function filterAndSort() {
+            const query = searchText.value.toLowerCase();
+            const category = categoryFilter.value;
+            const source = sourceFilter.value;
+            const importance = importanceFilter.value;
+            const sort = sortOrder.value;
+
+            let filtered = articles.filter(article => {
+                // テキスト検索
+                if (query) {
+                    const searchFields = [
+                        article.title,
+                        article.summary,
+                        article.source,
+                        article.category,
+                        ...(article.tags || [])
+                    ].filter(Boolean).join(' ').toLowerCase();
+
+                    if (!searchFields.includes(query)) {
+                        return false;
+                    }
+                }
+
+                // カテゴリフィルタ
+                if (category && article.category !== category) {
+                    return false;
+                }
+
+                // ソースフィルタ
+                if (source && article.source !== source) {
+                    return false;
+                }
+
+                // 重要度フィルタ
+                if (importance && article.importance !== importance) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            // ソート
+            filtered.sort((a, b) => {
+                switch (sort) {
+                    case 'importance':
+                        const impA = importancePriority[a.importance] ?? 3;
+                        const impB = importancePriority[b.importance] ?? 3;
+                        if (impA !== impB) return impA - impB;
+                        return (b.date || '').localeCompare(a.date || '');
+                    case 'source':
+                        return (a.source || '').localeCompare(b.source || '');
+                    case 'category':
+                        return (a.category || '').localeCompare(b.category || '');
+                    case 'date':
+                    default:
+                        return (b.date || '').localeCompare(a.date || '');
+                }
+            });
+
+            renderNews(filtered);
+        }
+
+        // ニュースカードのレンダリング
+        function renderNews(filteredArticles) {
+            resultCount.textContent = filteredArticles.length;
+
+            if (filteredArticles.length === 0) {
+                newsGrid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            newsGrid.innerHTML = filteredArticles.map(article => `
+                <article class="news-card">
+                    <div class="news-header">
+                        <div class="news-meta">
+                            ${article.category ? `<span class="badge badge-category">${escapeHtml(article.category)}</span>` : ''}
+                            ${article.importance ? `<span class="badge badge-importance ${article.importance}">${article.importance}</span>` : ''}
+                            <span class="news-source">${escapeHtml(article.source || 'Unknown')}</span>
+                        </div>
+                        <h2 class="news-title">
+                            ${article.url
+                                ? `<a href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title)}</a>`
+                                : escapeHtml(article.title)
+                            }
+                        </h2>
+                    </div>
+                    <div class="news-body">
+                        ${article.date ? `<div class="news-date">${escapeHtml(article.date)}</div>` : ''}
+                        ${article.summary ? `<p class="news-summary">${escapeHtml(article.summary)}</p>` : ''}
+                        ${article.tags && article.tags.length > 0 ? `
+                            <div class="news-tags">
+                                ${article.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // HTML エスケープ
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // フィルタクリア
+        function clearFilters() {
+            searchText.value = '';
+            categoryFilter.value = '';
+            sourceFilter.value = '';
+            importanceFilter.value = '';
+            sortOrder.value = 'date';
+            filterAndSort();
+        }
+
+        // イベントリスナー
+        searchText.addEventListener('input', filterAndSort);
+        categoryFilter.addEventListener('change', filterAndSort);
+        sourceFilter.addEventListener('change', filterAndSort);
+        importanceFilter.addEventListener('change', filterAndSort);
+        sortOrder.addEventListener('change', filterAndSort);
+
+        // 初期表示
+        filterAndSort();
+    </script>
+</body>
+</html>
