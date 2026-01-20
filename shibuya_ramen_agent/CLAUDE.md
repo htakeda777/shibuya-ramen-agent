@@ -23,7 +23,7 @@ python ramen_collector.py   # データ収集のみ
 python generate_web.py      # Web生成のみ
 
 # ローカルサーバーでWebページを確認
-cd ../output && python -m http.server 8888
+cd ../docs && python -m http.server 8888
 ```
 
 ## アーキテクチャ
@@ -35,11 +35,11 @@ ramen_collector.py         # Claude Agent SDK でデータ収集
     ├─ WebSearch ツール     # 「渋谷区 ラーメン」等で検索
     └─ WebFetch ツール      # 店舗詳細情報取得
     ↓
-output/ramen_shops.json    # 構造化された店舗データ
+docs/ramen_shops.json      # 構造化された店舗データ
     ↓
 generate_web.py            # HTML + JS 生成
     ↓
-output/index.html          # 検索・フィルタリング機能付きWebページ
+docs/index.html            # 検索・フィルタリング機能付きWebページ
 ```
 
 ## 主要コンポーネント

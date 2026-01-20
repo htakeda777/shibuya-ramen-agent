@@ -46,8 +46,8 @@ python main.py
 
 このコマンドで以下の処理が実行されます：
 1. Web からラーメン店情報を収集
-2. `output/ramen_shops.json` にデータを保存
-3. `output/index.html` に検索 Web ページを生成
+2. `docs/ramen_shops.json` にデータを保存
+3. `docs/index.html` に検索 Web ページを生成
 
 ### Web ページのみ再生成
 
@@ -72,7 +72,7 @@ python generate_web.py
 生成された Web ページを表示するには：
 
 ```bash
-cd output
+cd docs
 python -m http.server 8000
 ```
 
@@ -81,7 +81,7 @@ python -m http.server 8000
 ## 出力ファイル
 
 ```
-output/
+docs/
 ├── ramen_shops.json   # 収集したラーメン店データ（JSON）
 └── index.html         # 検索可能な Web ページ
 ```

@@ -17,7 +17,7 @@ from claude_agent_sdk import query, ClaudeAgentOptions
 
 
 # 出力ディレクトリ
-OUTPUT_DIR = Path(__file__).parent.parent / "output"
+OUTPUT_DIR = Path(__file__).parent.parent / "docs"
 
 # エージェントへのシステムプロンプト
 SYSTEM_PROMPT = """あなたは渋谷区のラーメン店情報を収集する専門エージェントです。
